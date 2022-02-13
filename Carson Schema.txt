@@ -1,0 +1,35 @@
+Patient (patient_id, person_id, insurance)
+
+Patient_Records (record_id, patient_id, employee_id, employee_notes)
+
+Employee (employee_id, person_id, salary)
+
+Dentist (employee_id, branch_id)
+
+Receptionist (employee_id, branch_id)
+
+Manager(employee_id)
+
+Hygienist (employee_id)
+
+User (username, password) 
+
+Branch (branch_id, city, manager_id)
+
+Person (person_id, SSN, b_date, f_name, l_name, city, house, street, postal_code, province, email, gender, phone-number, caregiver_id)
+
+Appointment (appointment_id, patient_id, dentist_id, date, start_time, end_time, appointment_type, status, room_assignment)
+
+Appointment_Procedure (appointment_proc_id, appointment_id, procedure_code, procedure_type, date, invoice_id, tooth_involved, amount_of_procedure, patient_charge, insurance_charge, total_charge, insurance_claim_id)
+
+Treatment (treatment_id, patient_id, treatment_type, treatment_type, appointment_id, treatment_details, patient_records)
+
+Fee_Charge (fee_id, invoice_id, fee_code, charge)
+
+Invoice (invoice_id, patient_id, date_of_issue)
+
+Payment (payment_id, invoice_id, patient_charge, insurance_charge, total_charge, payment_type)
+
+Insurance_Claim (appointment_proc, payment_id)
+
+Review (review_id, professionalism, communication, cleanliness, value, patient_id, branch_id)
