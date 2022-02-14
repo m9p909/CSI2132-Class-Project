@@ -1,0 +1,26 @@
+Constraints
+
+Total participation constraints:
+-Review with relation to Branch and Patient, since you cannot have a review that is not linked to a branch or not written by a patient.
+-Treatment has total participation with patient, as not all patients will require a treatment but all treatments must be performed on a patient.
+-Dentist/Receptionist/Manager/Hygienist all have total participation with branch since they must work at a branch
+
+
+Cardinality Constraint:
+
+Receptionist has a (0,2] - one relationship with Branch
+
+One to many relations:
+Patient - Appointment
+Dentist - Appointment
+Appointment - Appointment_Procedure
+Branch - Review
+Patient - Review
+Branch - Hygienist
+Branch - Dentist
+Patient - Invoice
+Invoice - Payment
+Invoice - Appointment_Procedure
+
+
+Other relations are one to one
