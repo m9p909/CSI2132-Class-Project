@@ -79,7 +79,7 @@ create table "user"
 );
 
 CREATE TABLE Patient_Records(
-	record_id int primary key,
+	record_id serial primary key,
 	patient_id int,
 	employee_id int,
 	employee_notes varchar(20),
@@ -90,14 +90,14 @@ CREATE TABLE Patient_Records(
 );
 	
 CREATE TABLE Invoice(
-	invoice_id int primary key,
+	invoice_id serial primary key,
 	patient_id int,
 	date_of_issue date,
 	FOREIGN KEY (patient_id)REFERENCES Patient
 );
 	
 CREATE TABLE Fee_Charge(
-	fee_id int primary key,
+	fee_id serial primary key,
 	invoice_id int,
 	fee_code int,
 	charge int,
