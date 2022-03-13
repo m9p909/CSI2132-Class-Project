@@ -77,3 +77,32 @@ create table "user"
     person_id int,
     foreign key (person_id) references person (person_id)
 );
+
+CREATE TABLE Patient_Records(
+	record_id int primary key,
+	patient_id int,
+	employee_id int,
+	employee_notes varchar(20),
+	FOREIGN KEY (employee_id)
+	REFERENCES Employee,
+	FOREIGN KEY (patient_id)
+	REFERENCES Patient
+);
+	
+CREATE TABLE Invoice(
+	invoice_id int primary key,
+	patient_id int,
+	date_of_issue date,
+	FOREIGN KEY (patient_id),
+	REFERENCES Patient
+);
+	
+CREATE TABLE Fee_Charge(
+	fee_id int primary key,
+	invoice_id int,
+	fee_code int,
+	charge int,
+	FOREIGN KEY (invoice_id),
+	REFERENCES Invoice
+);
+	
