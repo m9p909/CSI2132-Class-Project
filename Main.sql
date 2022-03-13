@@ -93,8 +93,7 @@ CREATE TABLE Invoice(
 	invoice_id int primary key,
 	patient_id int,
 	date_of_issue date,
-	FOREIGN KEY (patient_id),
-	REFERENCES Patient
+	FOREIGN KEY (patient_id)REFERENCES Patient
 );
 	
 CREATE TABLE Fee_Charge(
@@ -102,7 +101,6 @@ CREATE TABLE Fee_Charge(
 	invoice_id int,
 	fee_code int,
 	charge int,
-	FOREIGN KEY (invoice_id),
-	REFERENCES Invoice
+	FOREIGN KEY (invoice_id) REFERENCES Invoice
 );
 	
