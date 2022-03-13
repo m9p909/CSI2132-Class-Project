@@ -16,3 +16,11 @@ create table person
     care_giver_id int,
     FOREIGN KEY (person_id) REFERENCES person (person_id)
 );
+
+create table patient
+(
+    patient_id SERIAL PRIMARY KEY,
+    person_id int,
+    insurance varchar(100),
+    foreign key (person_id) references person(person_id)
+)
