@@ -158,7 +158,7 @@ CREATE TABLE Appointment_Procedure(
 	insurance_claim_id INT,
 	FOREIGN KEY (appointment_id)
 	REFERENCES Appointment,
-	FOREIGN KEY (invoice_id),
+	FOREIGN KEY (invoice_id)
 	REFERENCES Invoice,
 	FOREIGN KEY (insurance_claim_id) REFERENCES Insurance_claim
 );
