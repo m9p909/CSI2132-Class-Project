@@ -7,3 +7,6 @@ drop table manager;
 drop table employee;
 drop table patient;
 drop table person;
+drop table Patient_Records;
+drop table Invoice;
+drop table Fee_Charge;
