@@ -20,15 +20,52 @@ create table person
 create table patient
 (
     patient_id SERIAL PRIMARY KEY,
-    person_id int,
-    insurance varchar(100),
-    foreign key (person_id) references person(person_id)
+    person_id  int,
+    insurance  varchar(100),
+    foreign key (person_id) references person (person_id)
 );
 
 create table employee
 (
     employee_id SERIAL PRIMARY KEY,
-    person_id int,
-    salary bigint,
-    foreign key (person_id) references person(person_id)
+    person_id   int,
+    salary      bigint,
+    foreign key (person_id) references person (person_id)
 );
+
+create table manager
+(
+    employee_id int unique,
+    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+);
+
+create table branch
+(
+    branch_id  serial primary key,
+    manager_id int,
+    FOREIGN KEY (manager_id) references manager (employee_id)
+);
+
+create table dentist
+(
+    employee_id int primary key,
+    branch_id   int,
+    FOREIGN KEY (branch_id) references branch (branch_id),
+    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+);
+
+create table receptionist
+(
+    employee_id int primary key,
+    branch_id   int,
+    FOREIGN KEY (branch_id) references branch (branch_id),
+    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+);
+
+create table hygienist
+(
+    employee_id int primary key,
+    branch_id   int,
+    FOREIGN KEY (branch_id) references branch (branch_id),
+    FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+)
