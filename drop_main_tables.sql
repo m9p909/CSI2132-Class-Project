@@ -1,4 +1,5 @@
-drop table hygienist
+drop table user;
+drop table hygienist;
 drop table receptionist;
 drop table dentist;
 drop table branch;

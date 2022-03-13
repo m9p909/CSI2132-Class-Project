@@ -68,4 +68,12 @@ create table hygienist
     branch_id   int,
     FOREIGN KEY (branch_id) references branch (branch_id),
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
-)
+);
+
+create table "user"
+(
+    username varchar PRIMARY KEY,
+    password varchar,
+    person_id int,
+    foreign key (person_id) references person (person_id)
+);
