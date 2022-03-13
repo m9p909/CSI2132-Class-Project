@@ -78,33 +78,33 @@ create table "user"
     foreign key (person_id) references person (person_id)
 );
 
-CREATE TABLE Patient_Records(
+CREATE TABLE patient_records(
 	record_id serial primary key,
 	patient_id int,
 	employee_id int,
 	employee_notes varchar(20),
 	FOREIGN KEY (employee_id)
-	REFERENCES Employee,
+	REFERENCES employee,
 	FOREIGN KEY (patient_id)
-	REFERENCES Patient
+	REFERENCES patient
 );
 	
-CREATE TABLE Invoice(
+CREATE TABLE invoice(
 	invoice_id serial primary key,
 	patient_id int,
 	date_of_issue date,
-	FOREIGN KEY (patient_id)REFERENCES Patient
+	FOREIGN KEY (patient_id)REFERENCES patient
 );
 	
-CREATE TABLE Fee_Charge(
+CREATE TABLE fee_charge(
 	fee_id serial primary key,
 	invoice_id int,
 	fee_code int,
 	charge int,
-	FOREIGN KEY (invoice_id) REFERENCES Invoice
+	FOREIGN KEY (invoice_id) REFERENCES invoice
 );
 
-CREATE TABLE Review(
+CREATE TABLE review(
 	review_id serial primary key,
 	professionalism int check(10 >= professionalism and professionalism >= 0),
 	communication int check(10 >= communication and communication >= 0),
@@ -112,11 +112,11 @@ CREATE TABLE Review(
 	review_value INT check(10 >= review_value and review_value >= 0),
 	patient_id INT,
 	branch_id INt,
-	FOREIGN KEY (patient_id) REFERENCES Patient,
-	FOREIGN KEY (branch_id) REFERENCES Branch
+	FOREIGN KEY (patient_id) REFERENCES patient,
+	FOREIGN KEY (branch_id) REFERENCES branch
 );
 
-CREATE TABLE Appointment(
+CREATE TABLE appointment(
                             appointment_id serial primary key,
                             patient_id INT,
                             dentist_id INT,
@@ -128,29 +128,39 @@ CREATE TABLE Appointment(
                             room_assigned varchar(49),
                             FOREIGN KEY (patient_id)
                                 REFERENCES Patient,
-                            FOREIGN KEY (dentist_id) REFERENCES Dentist
+                            FOREIGN KEY (dentist_id) REFERENCES dentist
 );
 
-CREATE TABLE Treatment(
+CREATE TABLE treatment(
 	treatment_id serial primary key,
 	patient_id int,
 	treatment_type varchar(50),
 	appointment_id int,
 	treatment_details varchar(100),
 	record_id int,
-	FOREIGN KEY (patient_id) REFERENCES Patient,
-	FOREIGN KEY (appointment_id) REFERENCES Appointment,
-	FOREIGN KEY (record_id) REFERENCES Patient_Records
+	FOREIGN KEY (patient_id) REFERENCES patient,
+	FOREIGN KEY (appointment_id) REFERENCES appointment,
+	FOREIGN KEY (record_id) REFERENCES patient_Records
 );
 
-CREATE TABLE Insurance_Claim(
+CREATE TABLE payment(
+	payment_id int primary key,
+	invoice_id INT,
+	patient_charge INT,
+	insurance_charge INT,
+	total_charge INT,
+	payment_type VARCHAR,
+	FOREIGN KEY (invoice_id) REFERENCES invoice
+);
+
+CREATE TABLE insurance_claim(
                                 appointment_proc int PRIMARY KEY,
                                 payment_id INT,
                                 FOREIGN KEY(payment_id)
-                                    REFERENCES Payment
+                                    REFERENCES payment
 );
 
-CREATE TABLE Appointment_Procedure(
+CREATE TABLE appointment_procedure(
 	appointment_proc_id serial primary key,
 	appointment_id INT,
 	procedure_code  VARCHAR(50),
@@ -164,25 +174,17 @@ CREATE TABLE Appointment_Procedure(
 	total_charge INT,
 	insurance_claim_id INT,
 	FOREIGN KEY (appointment_id)
-	REFERENCES Appointment,
+	REFERENCES appointment,
 	FOREIGN KEY (invoice_id)
-	REFERENCES Invoice,
-	FOREIGN KEY (insurance_claim_id) REFERENCES Insurance_claim
+	REFERENCES invoice,
+	FOREIGN KEY (insurance_claim_id) REFERENCES insurance_claim
 );
 
 
 alter table insurance_claim
-add constraint insurance_appointment_proc_fk FOREIGN key (appointment_proc) REFERENCES Appointment_Procedure;
+add constraint insurance_appointment_proc_fk FOREIGN key (appointment_proc) REFERENCES appointment_procedure;
 
 
 
-CREATE TABLE Payments(
-	payment_id int primary key,
-	invoice_id INT,
-	patient_charge INT,
-	insurance_charge INT,
-	total_charge INT,
-	payment_type VARCHAR,
-	FOREIGN KEY (invoice_id) REFERENCES Invoice
-);
+
 	
