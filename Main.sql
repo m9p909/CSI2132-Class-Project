@@ -105,7 +105,7 @@ CREATE TABLE Fee_Charge(
 );
 
 CREATE TABLE Review(
-	review_id INT primary key,
+	review_id serial primary key,
 	professionalism int check(10 >= professionalism and professionalism >= 0),
 	communication int check(10 >= communication and communication >= 0),
 	cleanliness int check(10 >= cleanliness and cleanliness >= 0),
@@ -116,9 +116,23 @@ CREATE TABLE Review(
 	FOREIGN KEY (branch_id) REFERENCES Branch
 );
 
+CREATE TABLE Appointment(
+                            appointment_id serial primary key,
+                            patient_id INT,
+                            dentist_id INT,
+                            appintment_date date,
+                            start_time timestamp,
+                            end_time timestamp,
+                            appointement_type varchar(49),
+                            status varchar(49),
+                            room_assigned varchar(49),
+                            FOREIGN KEY (patient_id)
+                                REFERENCES Patient,
+                            FOREIGN KEY (dentist_id) REFERENCES Dentist
+);
 
 CREATE TABLE Treatment(
-	treatment_id int primary key,
+	treatment_id serial primary key,
 	patient_id int,
 	treatment_type varchar(50),
 	appointment_id int,
@@ -129,22 +143,15 @@ CREATE TABLE Treatment(
 	FOREIGN KEY (record_id) REFERENCES Patient_Records
 );
 
-CREATE TABLE Appointment(
-	appointment_id INT primary key,
-	patient_id INT,
-	dentist_id INT,
-	appintment_date date,
-	start_time timestamp,
-	end_time timestamp,
-	appointement_type varchar(50),
-	status varchar(50),
-	room_assigned varchar(50),
-	FOREIGN KEY (patient_id)
-	REFERENCES Patient,
-	FOREIGN KEY (dentist_id) REFERENCES Dentist
+CREATE TABLE Insurance_Claim(
+                                appointment_proc int PRIMARY KEY,
+                                payment_id INT,
+                                FOREIGN KEY(payment_id)
+                                    REFERENCES Payment
 );
+
 CREATE TABLE Appointment_Procedure(
-	appointment_proc_id INT primary key,
+	appointment_proc_id serial primary key,
 	appointment_id INT,
 	procedure_code  VARCHAR(50),
 	procedure_type  VARCHAR(50),
@@ -163,13 +170,11 @@ CREATE TABLE Appointment_Procedure(
 	FOREIGN KEY (insurance_claim_id) REFERENCES Insurance_claim
 );
 
-CREATE TABLE Insurance_Claim(
-	appointment_proc INT PRIMARY KEY,
-	payment_id INT,
-	FOREIGN KEY(payment_id)
-	REFERENCES Payment,
-	FOREIGN KEY(appointment_proc_id) REFERENCES Appointment_Procedure
-);
+
+alter table insurance_claim
+add constraint insurance_appointment_proc_fk FOREIGN key (appointment_proc) REFERENCES Appointment_Procedure;
+
+
 
 CREATE TABLE Payments(
 	payment_id int primary key,
