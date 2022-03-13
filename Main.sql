@@ -103,4 +103,81 @@ CREATE TABLE Fee_Charge(
 	charge int,
 	FOREIGN KEY (invoice_id) REFERENCES Invoice
 );
+
+CREATE TABLE Review(
+	review_id INT primary key,
+	professionalism INT MAX(10) MIN(0),
+	communication INT MAX(10) MIN(0),
+	cleanliness INT MAX(10) MIN(0),
+	value INT MAX(10) MIN(0),
+	patient_id INT,
+	branch_id INt,
+	FOREIGN KEY (patient_id) REFERENCES Patient,
+	FOREIGN KEY (branch_id) REFERENCES Branch
+);
+
+
+CREATE TABLE Treatment(
+	treatment_id int primary key,
+	patient_id int,
+	treatment_type varchar(50),
+	appointment_id int,
+	treatment_details varchar(100),
+	record_id int,
+	FOREIGN KEY (patient_id) REFERENCES Patient,
+	FOREIGN KEY (appointment_id) REFERENCES Appointment,
+	FOREIGN KEY (record_id) REFERENCES Patient_Records
+);
+
+CREATE TABLE Appointment(
+	appointment_id INT primary key,
+	patient_id INT,
+	dentist_id INT,
+	appintment_date date,
+	start_time timestamp,
+	end_time timestamp,
+	appointement_type varchar(50),
+	status varchar(50),
+	room_assigned varchar(50),
+	FOREIGN KEY (patient_id)
+	REFERENCES Patient,
+	FOREIGN KEY (dentist_id) REFERENCES Dentist
+);
+CREATE TABLE Appointment_Procedure(
+	appointment_proc_id INT primary,
+	appointment_id INT,
+	procedure_code  VARCHAR(50),
+	procedure_type  VARCHAR(50),
+	appintment_date date,
+	invoice_id int,
+	tooth_involved VARCHAR(50),
+	amount_of_procedure INT,
+	patient_charge INT,
+	insurance_charge INT,
+	total_charge INT,
+	insurance_claim_id INT,
+	FOREIGN KEY (appointment_id)
+	REFERENCES Appointment,
+	FOREIGN KEY (invoice_id),
+	REFERENCES Invoice,
+	FOREIGN KEY (insurance_claim_id) REFERENCES Insurance_claim
+);
+
+CREATE TABLE Insurance_Claim(
+	appointment_proc INT PRIMARY KEY,
+	payment_id INT,
+	FOREIGN KEY(payment_id)
+	REFERENCES Payment,
+	FOREIGN KEY(appointment_proc_id) REFERENCES Appointment_Procedure
+);
+
+CREATE TABLE Payments(
+	payment_id int primary key,
+	invoice_id INT,
+	patient_charge INT,
+	insurance_charge INT,
+	total_charge INT,
+	payment_type VARCHAR,
+	FOREIGN KEY (invoice_id) REFERENCES Invoice
+);
 	
