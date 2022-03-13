@@ -42,6 +42,7 @@ create table manager
 create table branch
 (
     branch_id  serial primary key,
+    city VARCHAR(20) unique, 
     manager_id int,
     FOREIGN KEY (manager_id) references manager (employee_id)
 );
@@ -120,11 +121,11 @@ CREATE TABLE appointment(
                             appointment_id serial primary key,
                             patient_id INT,
                             dentist_id INT,
-                            appintment_date date,
+                            appointment_date date,
                             start_time timestamp,
                             end_time timestamp,
                             appointement_type varchar(49),
-                            status varchar(49),
+                            appointement_status varchar(49),
                             room_assigned varchar(49),
                             FOREIGN KEY (patient_id)
                                 REFERENCES Patient,
