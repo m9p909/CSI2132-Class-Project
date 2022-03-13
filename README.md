@@ -6,3 +6,14 @@ Amine Baba      300145121
 Victor Babineau 300010115
 Carson Boyne    300207779
 Jathushan Karthigesar 300060617
+
+
+
+# wokring plan:
+
+While working on Main.sql, if you finish a table drop it in the groupchat. 
+
+Tables Completed:
+
+
+In progress:
