@@ -23,4 +23,12 @@ create table patient
     person_id int,
     insurance varchar(100),
     foreign key (person_id) references person(person_id)
-)
+);
+
+create table employee
+(
+    employee_id SERIAL PRIMARY KEY,
+    person_id int,
+    salary bigint,
+    foreign key (person_id) references person(person_id)
+);
