@@ -106,10 +106,10 @@ CREATE TABLE Fee_Charge(
 
 CREATE TABLE Review(
 	review_id INT primary key,
-	professionalism INT MAX(10) MIN(0),
-	communication INT MAX(10) MIN(0),
-	cleanliness INT MAX(10) MIN(0),
-	value INT MAX(10) MIN(0),
+	professionalism int check(10 >= professionalism and professionalism >= 0),
+	communication int check(10 >= communication and communication >= 0),
+	cleanliness int check(10 >= cleanliness and cleanliness >= 0),
+	review_value INT check(10 >= review_value and review_value >= 0),
 	patient_id INT,
 	branch_id INt,
 	FOREIGN KEY (patient_id) REFERENCES Patient,
@@ -144,7 +144,7 @@ CREATE TABLE Appointment(
 	FOREIGN KEY (dentist_id) REFERENCES Dentist
 );
 CREATE TABLE Appointment_Procedure(
-	appointment_proc_id INT primary,
+	appointment_proc_id INT primary key,
 	appointment_id INT,
 	procedure_code  VARCHAR(50),
 	procedure_type  VARCHAR(50),
