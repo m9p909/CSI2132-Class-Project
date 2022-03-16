@@ -1,7 +1,7 @@
 create table person
 (
     person_id     SERIAL PRIMARY KEY,
-    SSN           int,
+    SSN           int unique,
     b_date        date,
     f_name        varchar(100),
     l_name        varchar(100),
