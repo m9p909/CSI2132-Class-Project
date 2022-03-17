@@ -56,7 +56,8 @@ def insert_patient(request):
         form = Patient(request.POST)
         if form.is_valid():
             try:
-                return create_patient(form)
+                create_patient(form)
+                return render(request, "patient_form.html", {"success": True})
             except Exception as e:
                 print(str(e))
                 return render(request, "patient_form.html", {"form": form,
