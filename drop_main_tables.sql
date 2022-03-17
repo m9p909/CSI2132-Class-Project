@@ -12,8 +12,8 @@ drop table dentist;
 drop table branch;
 drop table manager;
 drop table fee_charge;
-drop table invoice;
-drop table patient;
+drop table invoice cascade;
+drop table patient cascade;
 drop table employee;
-drop table person;
+drop table person cascade;
 

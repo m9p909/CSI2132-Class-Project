@@ -12,9 +12,6 @@ class PostgresConfig(AppConfig):
 
     def ready(self):
         self.engine = connect_to_database(connection_string)
+
     def get_engine(self):
         return self.engine
-
-
-
-

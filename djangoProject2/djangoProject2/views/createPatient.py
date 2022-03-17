@@ -30,31 +30,39 @@ def form_to_dict(form: Form) -> dict:
     return res
 
 
+def create_patient(form: Patient):
+    with get_engine().connect() as conn:
+        form_data = form_to_dict(form)
+        # we probably should have had ssn be a PK
+        query = text(
+            "INSERT INTO person(SSN, b_date, f_name, l_name, city, house_number, street, postal_code, "
+            "province, email, gender, phone_number) "
+            "VALUES (:SSN,:b_date,:f_name,:l_name,:city,:house_number,:street,:postal_code,"
+            ":province,:email, "
+            ":gender,:phone_number);"
+            "INSERT  INTO patient(person_id, insurance)"
+            "VALUES ((select person_id from person where SSN = :SSN), :insurance);")
+
+        result = conn.execute(query, form_data)
+        if form_data["caregiver_ssn"]:
+            query = text(
+                "update person set care_giver_id = (select person_id from person where :caregiver_ssn "
+                "= SSN )where SSN=:SSN")
+            conn.execute(query, form_data)
+
+
 def insert_patient(request):
     if request.method == "POST":
         form = Patient(request.POST)
         if form.is_valid():
-            with get_engine().connect() as conn:
-                form_data = form_to_dict(form)
-                # we probably should have had ssn be a PK
-                query = text("INSERT INTO person(SSN, b_date, f_name, l_name, city, house_number, street, postal_code, "
-                             "province, email, gender, phone_number) "
-                             "VALUES (:SSN,:b_date,:f_name,:l_name,:city,:house_number,:street,:postal_code,"
-                             ":province,:email, "
-                             ":gender,:phone_number);"
-                             "INSERT  INTO patient(person_id, insurance)"
-                             "VALUES ((select person_id from person where SSN = :SSN), :insurance);")
-
-                result = conn.execute(query, form_data)
-                if form_data["caregiver_ssn"]:
-                    query = text("update person set care_giver_id = (select person_id from person where :caregiver_ssn "
-                                 "= SSN )where SSN=:SSN")
-                    conn.execute(query, form_data)
-
+            try:
+                return create_patient(form)
+            except Exception as e:
+                print(str(e))
+                return render(request, "patient_form.html", {"form": form,
+                                                             "error": True})
         else:
             return render(request, "patient_form.html", {"form": form})
-
-        return render(request, "patient_form.html", {"success": True})
 
 
 def get_patient_form(request):

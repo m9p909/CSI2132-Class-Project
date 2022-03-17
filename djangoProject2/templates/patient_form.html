@@ -9,6 +9,9 @@
     <div class="container">
         <h1>Patient Form</h1>
      <button class="btn btn-primary" onclick="location.href = '/';" id="myButton" class="float-left submit-button" >Home</button>
+        {% if error %}
+            <p> Something Went Wrong, please fix the submission and try again</p>
+        {% endif %}
         <form method="post">
             {{ form|crispy }}
             {% if not success %}
