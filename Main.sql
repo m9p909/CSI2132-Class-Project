@@ -20,17 +20,15 @@ create table person
 create table patient
 (
     patient_id SERIAL PRIMARY KEY,
-    person_id  int,
     insurance  varchar(100),
-    foreign key (person_id) references person (person_id)
+    foreign key (patient_id) references person (person_id)
 );
-
+-- Removed person_ID from both employee and patient
 create table employee
 (
     employee_id SERIAL PRIMARY KEY,
-    person_id   int,
     salary      bigint,
-    foreign key (person_id) references person (person_id)
+    foreign key (employee_id) references person (person_id)
 );
 
 create table manager
