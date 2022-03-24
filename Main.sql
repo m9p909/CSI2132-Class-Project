@@ -1,7 +1,8 @@
+-- Need to add a cascade so that when a person is deleted the employees, dentist etc. also are
 create table person
 (
-    person_id     SERIAL PRIMARY KEY,
-    SSN           int unique,
+    -- Removed the SNN  since we we're already using personID as it
+    person_id     int unique PRIMARY KEY,
     b_date        date,
     f_name        varchar(100),
     l_name        varchar(100),
@@ -22,6 +23,8 @@ create table patient
     patient_id SERIAL PRIMARY KEY,
     insurance  varchar(100),
     foreign key (patient_id) references person (person_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 -- Removed person_ID from both employee and patient
 create table employee
@@ -29,12 +32,16 @@ create table employee
     employee_id SERIAL PRIMARY KEY,
     salary      bigint,
     foreign key (employee_id) references person (person_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 create table manager
 (
     employee_id int unique,
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 create table branch
@@ -43,14 +50,20 @@ create table branch
     city VARCHAR(20) unique, 
     manager_id int,
     FOREIGN KEY (manager_id) references manager (employee_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 create table dentist
 (
     employee_id int primary key,
     branch_id   int,
-    FOREIGN KEY (branch_id) references branch (branch_id),
+    FOREIGN KEY (branch_id) references branch (branch_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 create table receptionist
@@ -65,8 +78,12 @@ create table hygienist
 (
     employee_id int primary key,
     branch_id   int,
-    FOREIGN KEY (branch_id) references branch (branch_id),
+    FOREIGN KEY (branch_id) references branch (branch_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
 );
 
 create table "user"
