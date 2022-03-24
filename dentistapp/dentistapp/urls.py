@@ -27,5 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('patient', patient_endpoint),
-    path('employee', employee_endpoint)
+    path('employee', employee_endpoint),
+    path('appointment', appointment_endpoint)
 ]
