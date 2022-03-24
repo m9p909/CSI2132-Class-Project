@@ -9,9 +9,10 @@ from dentistapp.setup_database import get_engine
 class Employee(Form):
     EMPLOYEE_TYPES = [  ("manager", "Manager"),
                         ("receptionist", "Receptionist"),
-                        ("hygienist", "Hygienist")
-                    ]
-    SSN = IntegerField(label="SSN")
+                        ("hygienist", "Hygienist"),
+                        ("dentist", "Dentist"),
+                        ]
+    person_id = IntegerField(label="SSN")
     b_date = DateField(label="Birth Date")
     f_name = CharField(label="First Name")
     l_name = CharField(label="Last Name")
@@ -42,37 +43,44 @@ def create_employee(form: Employee):
         form_data = form_to_dict(form)
         # Changed it so employee ID is equivalent to the person's ID
         query = text(
-            "INSERT INTO person(SSN, b_date, f_name, l_name, city, house_number, street, postal_code, "
+            "INSERT INTO person(person_id, b_date, f_name, l_name, city, house_number, street, postal_code, "
             "province, email, gender, phone_number) "
-            "VALUES (:SSN,:b_date,:f_name,:l_name,:city,:house_number,:street,:postal_code,"
+            "VALUES (:person_id,:b_date,:f_name,:l_name,:city,:house_number,:street,:postal_code,"
             ":province,:email, "
             ":gender,:phone_number);"
-            "INSERT  INTO Employee(employee_ID, salary)"
-            "VALUES ((select person_id from person where SSN = :SSN), :salary);")
+            "INSERT  INTO Employee(employee_id, salary)"
+            "VALUES ((select person_id from person where person_id = :person_id), :salary);")
 
         result = conn.execute(query, form_data)
         if form_data["caregiver_ssn"]:
             query = text(
                 "update person set care_giver_id = (select person_id from person where :caregiver_ssn "
-                "= SSN )where SSN=:SSN")
+                "= person_id )where person_id=:person_id")
             conn.execute(query, form_data)
         # Got to check the dependencies on branch_ids here
-        if form_data["employee_data"] == "manager":
+        if form_data["employee_type"] == "manager":
             query = text(
-                "INSERT  INTO Manager(employee_ID, branch_id)"
-                "VALUES (:employee_ID,:branch_id)"
+                "INSERT  INTO Manager(employee_id)"
+                "VALUES (:person_id);"
+                "UPDATE Branch SET manager_id=:person_id WHERE manager_id is NULL AND branch_id=:branch_id;"
             )
             conn.execute(query, form_data)
-        elif form_data["employee_data"] == "receptionist":
+        elif form_data["employee_type"] == "receptionist":
             query = text(
                 "INSERT  INTO Receptionist(employee_ID, branch_id)"
-                "VALUES (:employee_ID,:branch_id)"
+                "VALUES (:person_id,:branch_id)"
+            )
+            conn.execute(query, form_data)
+        elif(form_data["employee_type"]=="dentist"):
+            query = text(
+                "INSERT  INTO Dentist(employee_ID, branch_id)"
+                "VALUES (:person_id,:branch_id)"
             )
             conn.execute(query, form_data)
         else:
             query = text(
                 "INSERT  INTO hygienist(employee_ID, branch_id)"
-                "VALUES (:employee_ID,:branch_id)"
+                "VALUES (:person_id,:branch_id)"
             )
             conn.execute(query, form_data)
 
