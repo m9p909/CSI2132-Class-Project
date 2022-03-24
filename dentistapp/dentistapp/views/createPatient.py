@@ -40,7 +40,7 @@ def create_patient(form: Patient):
             "VALUES (:SSN,:b_date,:f_name,:l_name,:city,:house_number,:street,:postal_code,"
             ":province,:email, "
             ":gender,:phone_number);"
-            "INSERT  INTO patient(person_id, insurance)"
+            "INSERT  INTO patient(patient_id, insurance)"
             "VALUES ((select person_id from person where SSN = :SSN), :insurance);")
 
         result = conn.execute(query, form_data)

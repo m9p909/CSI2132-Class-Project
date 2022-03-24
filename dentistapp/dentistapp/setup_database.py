@@ -3,7 +3,8 @@ from sqlalchemy import create_engine
 from django.apps import apps
 
 localhoststr = "postgresql://postgres:Yipyapyop1@localhost:5432"
-connection_string = localhoststr  # set this to the database string
+victorhoststr = "postgresql://postgres:-@localhost:5432/CSI2132_Project"
+connection_string = victorhoststr  # set this to the database string
 
 
 def connect_to_database(connection_str: str):

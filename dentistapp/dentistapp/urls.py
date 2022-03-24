@@ -20,10 +20,12 @@ from django.contrib import admin
 from django.urls import path
 
 from dentistapp.views.createPatient import  patient_endpoint
+from dentistapp.views.createEmployee import  employee_endpoint
 from dentistapp.views.index import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('patient', patient_endpoint)
+    path('patient', patient_endpoint),
+    path('employee', employee_endpoint)
 ]
