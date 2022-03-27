@@ -22,6 +22,7 @@ from django.urls import path
 from dentistapp.views.createPatient import  patient_endpoint
 from dentistapp.views.createEmployee import  employee_endpoint
 from dentistapp.views.showDentistsInBranch import  dentist_in_branch_endpoint
+from dentistapp.views.setAppointment import  appointment_endpoint
 from dentistapp.views.index import index
 
 urlpatterns = [
@@ -29,6 +30,6 @@ urlpatterns = [
     path('', index),
     path('patient', patient_endpoint),
     path('employee', employee_endpoint),
-    path('dentist_in_branch', dentist_in_branch_endpoint)
+    path('dentist_in_branch', dentist_in_branch_endpoint),
     path('appointment', appointment_endpoint)
 ]

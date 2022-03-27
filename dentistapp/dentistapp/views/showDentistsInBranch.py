@@ -12,8 +12,8 @@ class Dentist(Form):
 
 def form_to_dict(form: Form) -> dict:
     res = {}
-    for value in form:
-        res[value.name] = value.value()
+    for row in form:
+    # make form into dict
     return res
 
 def query_dentist():
@@ -25,7 +25,6 @@ def query_dentist():
 
         result = conn.execute(query)
         for row in result:
-            print(row)
             print("Dentist ID:", row['employee_id'])
             print("Branch ID:", row['branch_id'])
         return result
@@ -33,7 +32,10 @@ def query_dentist():
 def get_dentist_branch(request):
     if request.method == "GET":
         result = query_dentist()
-        return render(request, "dentist_branch_form.html", {"success": True})
+        print(result)
+        result = form_to_dict(result)
+
+        return render(request, "dentist_branch_form.html", result)
 
 def dentist_in_branch_endpoint(request):
     return get_dentist_branch(request)

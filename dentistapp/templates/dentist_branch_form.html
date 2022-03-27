@@ -12,13 +12,18 @@
         {% if error %}
             <p> Something Went Wrong, please fix the submission and try again</p>
         {% endif %}
-        <form method="get">
-            {{ form|crispy }}
-            {% if not success %}
-                <br>
-            <button type="submit" class="btn btn-success">Search dentists</button>
-            {% endif %}
-        </form>
+        <table>
+            <tr>
+                <th>Dentist ID:</th>
+                <th>Branch ID:</th>
+            </tr>
+            {% for item in result %}
+            <tr>
+                <td>{{ item.employee_id }}</td>
+                <td>{{ item.branch_id }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 
 
 
