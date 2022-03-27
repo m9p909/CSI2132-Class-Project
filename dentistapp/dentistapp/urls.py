@@ -30,4 +30,5 @@ urlpatterns = [
     path('patient', patient_endpoint),
     path('employee', employee_endpoint),
     path('dentist_in_branch', dentist_in_branch_endpoint)
+    path('appointment', appointment_endpoint)
 ]
