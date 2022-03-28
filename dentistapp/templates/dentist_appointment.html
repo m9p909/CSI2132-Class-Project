@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Dentist App</title>
+{% endblock %}
+
+{% block body %}
+    {% load crispy_forms_tags %}
+    <div class="container">
+        <h2>Appointment Checker</h2>
+        <h2>Enter Dentist ID/SSN</h2>
+        <button class="btn btn-primary" onclick="location.href = '/';" id="myButton" class="float-left submit-button" >Home</button>
+        {% if error %}
+            <p> Something Went Wrong, please fix the submission and try again</p>
+        {% endif %}
+        <form method="POST">
+            {{ form|crispy }}
+            {% if not success %}
+                <br>
+            <button type="submit" class="btn btn-success">Search Appointments</button>
+            {% endif %}
+        </form>
+        <h2>Dentists' Appointments</h2>
+        <table>
+                {% for key,values in query.items %}
+                <tr>
+                    <td>{{key}}</td>
+                    {% for v in values %}
+                    <td>{{v}}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor%}
+        </table>
+
+
+
+
+
+    </div>
+{% endblock %}

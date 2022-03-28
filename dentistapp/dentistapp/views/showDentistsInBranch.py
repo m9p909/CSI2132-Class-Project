@@ -10,7 +10,7 @@ class Dentist(Form):
     branch_id = IntegerField(label="Branch ID")
 
 
-def form_to_dict(form: Form) -> dict:
+def result_to_context(form: Form) -> dict:
     res={}
     subres = {}
     for key in form.keys():
@@ -26,7 +26,8 @@ def query_dentist():
     with get_engine().connect() as conn:
 
         query = text(
-            "SELECT p.f_name,p.l_name, employee_id , d.branch_id,b.city FROM person p, dentist d, branch b WHERE d.branch_id=b.branch_id and p.person_id=employee_id;",
+            "SELECT p.f_name,p.l_name, employee_id , d.branch_id,b.city FROM person p, dentist d, branch b "
+            "WHERE d.branch_id=b.branch_id and p.person_id=employee_id;",
         )
 
         result = conn.execute(query)
@@ -39,7 +40,7 @@ def query_dentist():
 def get_dentist_branch(request):
     if request.method == "GET":
         result = query_dentist()
-        context = form_to_dict(result)
+        context = result_to_context(result)
         return render(request, "dentist_branch_form.html", context)
 
 def dentist_in_branch_endpoint(request):
