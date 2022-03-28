@@ -7,25 +7,20 @@
 {% block body %}
     {% load crispy_forms_tags %}
     <div class="container">
-        <h1>Dentist Branch Form</h1>
-     <button class="btn btn-primary" onclick="location.href = '/';" id="myButton" class="float-left submit-button" >Home</button>
-        {% if error %}
-            <p> Something Went Wrong, please fix the submission and try again</p>
-        {% endif %}
+        <h1>Dentists in Branches</h1>
         <table>
-            <tr>
-                <th>Dentist ID:</th>
-                <th>Branch ID:</th>
-            </tr>
-            {% for item in result %}
-            <tr>
-                <td>{{ item.employee_id }}</td>
-                <td>{{ item.branch_id }}</td>
-            </tr>
-            {% endfor %}
+
+                {% for key,values in query.items %}
+                <tr>
+                    <td>{{key}}</td>
+                    {% for v in values %}
+                    <td>{{v}}</td>
+                    {% endfor %}
+                    </tr>
+                {% endfor%}
         </table>
 
-
+<button class="btn btn-primary" onclick="location.href = '/';" id="myButton" class="float-left submit-button" >Home</button>
 
 
 
