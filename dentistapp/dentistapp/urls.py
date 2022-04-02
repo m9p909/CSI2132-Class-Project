@@ -34,4 +34,5 @@ urlpatterns = [
     path('dentist_in_branch', dentist_in_branch_endpoint),
     path('appointment', appointment_endpoint),
     path('check_appointment_endpoint', check_appointment_endpoint)
+    path('check_procedure_endpoint', check_procedure_endpoint)
 ]
