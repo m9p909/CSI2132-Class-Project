@@ -34,12 +34,13 @@ def result_to_context(result):
 def get_query(form: Procedure):
     with get_engine().connect() as conn:
         form_data = form_to_dict(form)
-        query = text("SELECT DISTINCT procedure_type FROM Appointment_Procedure;")
+        query = text("SELECT DISTINCT procedure_type FROM procedure ;")
         result = conn.execute(query, form_data)
         return result
 
 def query_procedure(request):
-    context = result_to_context(get_query())
+    form = Procedure(request.POST)
+    context = result_to_context(get_query(form))
     return render(request, "procedure_list.html", context)
 
 def get_procedures(request):
