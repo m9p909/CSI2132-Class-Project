@@ -7,7 +7,7 @@ env = environ.Env()
 env.read_env()
 localhoststr = "postgresql://postgres:Yipyapyop1@localhost:5432"
 victorhoststr = "postgresql://postgres:3574128960%40Az@localhost:5432/CSI2132_DB"
-connection_string = env("DATABASE_STR")  # set this to the database string
+connection_string = env("DATABASE_URL")  # set this to the database string
 
 
 def connect_to_database(connection_str: str):
