@@ -1,0 +1,10 @@
+pip~=21.3.1
+wheel~=0.37.1
+Django~=4.0.3
+sqlparse~=0.4.2
+psycopg2~=2.9.3
+asgiref~=3.5.0
+greenlet~=1.1.2
+setuptools~=60.2.0
+SQLAlchemy~=1.4.32
+django-crispy-forms~=1.14.0

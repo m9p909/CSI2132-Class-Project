@@ -1,10 +1,13 @@
 import sqlalchemy.engine
 from sqlalchemy import create_engine
 from django.apps import apps
+import environ
 
+env = environ.Env()
+env.read_env()
 localhoststr = "postgresql://postgres:Yipyapyop1@localhost:5432"
 victorhoststr = "postgresql://postgres:3574128960%40Az@localhost:5432/CSI2132_DB"
-connection_string = victorhoststr  # set this to the database string
+connection_string = env("DATABASE_STR")  # set this to the database string
 
 
 def connect_to_database(connection_str: str):
