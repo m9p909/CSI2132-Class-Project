@@ -11,7 +11,7 @@ victorhoststr = "postgresql://postgres:3574128960%40Az@localhost:5432/CSI2132_DB
 connection_string = env("DATABASE_URL")  # set this to the database string
 if not connection_string.startswith("postgresql"):
     parts = connection_string.split("//")
-    parts.remove(0)
+    parts.pop(0)
     parts.push("postgresql://")
     connection_string = ''.join(parts)
 
