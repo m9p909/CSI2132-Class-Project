@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l(@d!mrs3tl&+lj$o#l_szk()#$0g5a*-et4hoti3!611b4wc!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dentist-app7.herokuapp.com']
 
 
 # Application definition
