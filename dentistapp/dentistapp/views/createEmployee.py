@@ -49,7 +49,7 @@ def create_employee(form: Employee):
             ":province,:email, "
             ":gender,:phone_number);"
             "INSERT  INTO Employee(employee_id, salary)"
-            "VALUES ((select person_id from person where person_id = :person_id), :salary);")
+            "VALUES (:person_id, :salary);")
 
         result = conn.execute(query, form_data)
         if form_data["caregiver_ssn"]:
