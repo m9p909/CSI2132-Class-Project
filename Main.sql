@@ -201,6 +201,16 @@ alter table insurance_claim
 add constraint insurance_appointment_proc_fk FOREIGN key (appointment_proc) REFERENCES appointment_procedure;
 
 
+INSERT INTO Appointment_procedure(procedure_type)
+VALUES ('Scaling');
 
+INSERT INTO Appointment_procedure(procedure_type)
+VALUES ('Fluoride');
+
+INSERT INTO Appointment_procedure(procedure_type)
+VALUES ('Removal');
+
+INSERT INTO Appointment_procedure(procedure_type)
+VALUES ('Cavity Filling');
 
 	
