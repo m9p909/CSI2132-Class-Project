@@ -12,7 +12,7 @@ connection_string = env("DATABASE_URL")  # set this to the database string
 if not connection_string.startswith("postgresql"):
     parts = connection_string.split("//")
     parts.pop(0)
-    parts.push("postgresql://")
+    parts.insert(0, "postgresql://")
     connection_string = ''.join(parts)
 
 def connect_to_database(connection_str: str):
