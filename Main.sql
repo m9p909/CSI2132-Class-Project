@@ -83,7 +83,7 @@ create table hygienist
         ON UPDATE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES employee (employee_id)
         ON DELETE CASCADE
-        ON UPDATE CASCADE,
+        ON UPDATE CASCADE
 );
 
 create table "user"
