@@ -3,6 +3,7 @@ create table person
 (
     -- Removed the SNN  since we we're already using personID as it
     person_id     int unique PRIMARY KEY,
+    SSN varchar, 
     b_date        date,
     f_name        varchar(100),
     l_name        varchar(100),
