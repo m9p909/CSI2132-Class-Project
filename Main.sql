@@ -3,7 +3,6 @@ create table person
 (
     -- Removed the SNN  since we we're already using personID as it
     person_id     int unique PRIMARY KEY,
-    SSN varchar, 
     b_date        date,
     f_name        varchar(100),
     l_name        varchar(100),
@@ -21,7 +20,7 @@ create table person
 
 create table patient
 (
-    patient_id SERIAL PRIMARY KEY,
+    patient_id INT PRIMARY KEY,
     insurance  varchar(100),
     foreign key (patient_id) references person (person_id)
         ON DELETE CASCADE
@@ -30,7 +29,7 @@ create table patient
 -- Removed person_ID from both employee and patient
 create table employee
 (
-    employee_id SERIAL PRIMARY KEY,
+    employee_id INT PRIMARY KEY,
     salary      bigint,
     foreign key (employee_id) references person (person_id)
         ON DELETE CASCADE
