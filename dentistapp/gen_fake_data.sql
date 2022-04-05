@@ -44,3 +44,18 @@ values ('cool city', 123);
 
 insert into branch(city, manager_id)
 values ('bad city', 123);
+
+
+INSERT INTO procedure
+VALUES ('scal', 'Scaling');
+
+INSERT INTO procedure
+VALUES ('fluo', 'Fluoride');
+
+INSERT INTO procedure
+VALUES ('remove', 'removal');
+
+INSERT INTO Appointment_procedure
+VALUES ('cavity', 'Cavity Filling');
+
+

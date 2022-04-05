@@ -47,7 +47,7 @@ create table manager
 create table branch
 (
     branch_id  serial primary key,
-    city VARCHAR(20) unique, 
+    city       VARCHAR(20) unique,
     manager_id int,
     FOREIGN KEY (manager_id) references manager (employee_id)
         ON DELETE CASCADE
@@ -88,129 +88,132 @@ create table hygienist
 
 create table "user"
 (
-    username varchar PRIMARY KEY,
-    password varchar,
+    username  varchar PRIMARY KEY,
+    password  varchar,
     person_id int,
     foreign key (person_id) references person (person_id)
 );
 
-CREATE TABLE patient_records(
-	record_id serial primary key,
-	patient_id int,
-	employee_id int,
-	employee_notes varchar(20),
-	FOREIGN KEY (employee_id)
-	REFERENCES employee,
-	FOREIGN KEY (patient_id)
-	REFERENCES patient
-);
-	
-CREATE TABLE invoice(
-	invoice_id serial primary key,
-	patient_id int,
-	date_of_issue date,
-	FOREIGN KEY (patient_id)REFERENCES patient
-);
-	
-CREATE TABLE fee_charge(
-	fee_id serial primary key,
-	invoice_id int,
-	fee_code int,
-	charge int,
-	FOREIGN KEY (invoice_id) REFERENCES invoice
+CREATE TABLE patient_records
+(
+    record_id      serial primary key,
+    patient_id     int,
+    employee_id    int,
+    employee_notes varchar(20),
+    FOREIGN KEY (employee_id)
+        REFERENCES employee,
+    FOREIGN KEY (patient_id)
+        REFERENCES patient
 );
 
-CREATE TABLE review(
-	review_id serial primary key,
-	professionalism int check(10 >= professionalism and professionalism >= 0),
-	communication int check(10 >= communication and communication >= 0),
-	cleanliness int check(10 >= cleanliness and cleanliness >= 0),
-	review_value INT check(10 >= review_value and review_value >= 0),
-	patient_id INT,
-	branch_id INt,
-	FOREIGN KEY (patient_id) REFERENCES patient,
-	FOREIGN KEY (branch_id) REFERENCES branch
+CREATE TABLE invoice
+(
+    invoice_id    serial primary key,
+    patient_id    int,
+    date_of_issue date,
+    FOREIGN KEY (patient_id) REFERENCES patient
 );
 
-CREATE TABLE appointment(
-                            appointment_id serial primary key,
-                            patient_id INT,
-                            dentist_id INT,
-                            appointment_date date,
-                            start_time timestamp,
-                            end_time timestamp,
-                            appointement_type varchar(49),
-                            appointement_status varchar(49),
-                            room_assigned varchar(49),
-                            FOREIGN KEY (patient_id)
-                                REFERENCES Patient,
-                            FOREIGN KEY (dentist_id) REFERENCES dentist
+CREATE TABLE fee_charge
+(
+    fee_id     serial primary key,
+    invoice_id int,
+    fee_code   int,
+    charge     int,
+    FOREIGN KEY (invoice_id) REFERENCES invoice
 );
 
-CREATE TABLE treatment(
-	treatment_id serial primary key,
-	patient_id int,
-	treatment_type varchar(50),
-	appointment_id int,
-	treatment_details varchar(100),
-	record_id int,
-	FOREIGN KEY (patient_id) REFERENCES patient,
-	FOREIGN KEY (appointment_id) REFERENCES appointment,
-	FOREIGN KEY (record_id) REFERENCES patient_Records
+CREATE TABLE review
+(
+    review_id       serial primary key,
+    professionalism int check (10 >= professionalism and professionalism >= 0),
+    communication   int check (10 >= communication and communication >= 0),
+    cleanliness     int check (10 >= cleanliness and cleanliness >= 0),
+    review_value    INT check (10 >= review_value and review_value >= 0),
+    patient_id      INT,
+    branch_id       INt,
+    FOREIGN KEY (patient_id) REFERENCES patient,
+    FOREIGN KEY (branch_id) REFERENCES branch
 );
 
-CREATE TABLE payment(
-	payment_id int primary key,
-	invoice_id INT,
-	patient_charge INT,
-	insurance_charge INT,
-	total_charge INT,
-	payment_type VARCHAR,
-	FOREIGN KEY (invoice_id) REFERENCES invoice
+CREATE TABLE appointment
+(
+    appointment_id      serial primary key,
+    patient_id          INT,
+    dentist_id          INT,
+    appointment_date    date,
+    start_time          timestamp,
+    end_time            timestamp,
+    appointement_type   varchar(49),
+    appointement_status varchar(49),
+    room_assigned       varchar(49),
+    FOREIGN KEY (patient_id)
+        REFERENCES Patient,
+    FOREIGN KEY (dentist_id) REFERENCES dentist
 );
 
-CREATE TABLE insurance_claim(
-                                appointment_proc int PRIMARY KEY,
-                                payment_id INT,
-                                FOREIGN KEY(payment_id)
-                                    REFERENCES payment
+CREATE TABLE treatment
+(
+    treatment_id      serial primary key,
+    patient_id        int,
+    treatment_type    varchar(50),
+    appointment_id    int,
+    treatment_details varchar(100),
+    record_id         int,
+    FOREIGN KEY (patient_id) REFERENCES patient,
+    FOREIGN KEY (appointment_id) REFERENCES appointment,
+    FOREIGN KEY (record_id) REFERENCES patient_Records
 );
 
-CREATE TABLE appointment_procedure(
-	appointment_proc_id serial primary key,
-	appointment_id INT,
-	procedure_code  VARCHAR(50),
-	procedure_type  VARCHAR(50),
-	appintment_date date,
-	invoice_id int,
-	tooth_involved VARCHAR(50),
-	amount_of_procedure INT,
-	patient_charge INT,
-	insurance_charge INT,
-	total_charge INT,
-	insurance_claim_id INT,
-	FOREIGN KEY (appointment_id)
-	REFERENCES appointment,
-	FOREIGN KEY (invoice_id)
-	REFERENCES invoice,
-	FOREIGN KEY (insurance_claim_id) REFERENCES insurance_claim
+CREATE TABLE payment
+(
+    payment_id       int primary key,
+    invoice_id       INT,
+    patient_charge   INT,
+    insurance_charge INT,
+    total_charge     INT,
+    payment_type     VARCHAR,
+    FOREIGN KEY (invoice_id) REFERENCES invoice
 );
+
+CREATE TABLE insurance_claim
+(
+    appointment_proc int PRIMARY KEY,
+    payment_id       INT,
+    FOREIGN KEY (payment_id)
+        REFERENCES payment
+);
+
+create table procedure
+(
+    procedure_code VARCHAR(50) primary key,
+    procedure_type VARCHAR(50)
+);
+
+CREATE TABLE appointment_procedure
+(
+    appointment_proc_id serial primary key,
+    appointment_id      INT,
+    procedure_type      VARCHAR(50),
+    appointment_date    date,
+    invoice_id          int,
+    tooth_involved      VARCHAR(50),
+    amount_of_procedure INT,
+    patient_charge      INT,
+    insurance_charge    INT,
+    total_charge        INT,
+    insurance_claim_id  INT,
+    FOREIGN KEY (appointment_id)
+        REFERENCES appointment,
+    FOREIGN KEY (invoice_id)
+        REFERENCES invoice,
+    FOREIGN KEY (insurance_claim_id) REFERENCES insurance_claim,
+    FOREIGN KEY (procedure_type) REFERENCES procedure
+);
+
 
 
 alter table insurance_claim
-add constraint insurance_appointment_proc_fk FOREIGN key (appointment_proc) REFERENCES appointment_procedure;
+    add constraint insurance_appointment_proc_fk FOREIGN key (appointment_proc) REFERENCES appointment_procedure;
 
 
-INSERT INTO Appointment_procedure(procedure_type)
-VALUES ('Scaling');
-
-INSERT INTO Appointment_procedure(procedure_type)
-VALUES ('Fluoride');
-
-INSERT INTO Appointment_procedure(procedure_type)
-VALUES ('Removal');
-
-INSERT INTO Appointment_procedure(procedure_type)
-VALUES ('Cavity Filling');
-
-	
