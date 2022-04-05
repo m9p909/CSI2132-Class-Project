@@ -6,6 +6,7 @@ drop table patient_records;
 drop table hygienist;
 drop table receptionist;
 drop table appointment_procedure cascade;
+drop table procedure;
 drop table insurance_claim;
 drop table appointment;
 drop table dentist;
