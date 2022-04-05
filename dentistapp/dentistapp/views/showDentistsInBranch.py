@@ -13,13 +13,16 @@ class Dentist(Form):
 def result_to_context(form: Form) -> dict:
     res={}
     subres = {}
-    for key in form.keys():
-        subres[key]=[]
-    for row in form:
+    rows = []
+    for formrow in form:
+        row = []
         for key in form.keys():
-            subres[key].append(row[key])
+            row.append(formrow[key])
+        rows.append(row)
     # make form into dict
-    res['query']=subres
+    res['keys']= [key for key in form.keys()]
+    res['rows'] = rows
+    res['columns'] = len(rows[0])
     return res
 
 def query_dentist():

@@ -20,14 +20,14 @@
             {% endif %}
         </form>
         <h2>Procedures Available</h2>
-        <table>
+        <table class="table">
+        <th>Procedures</th>
                 {% for key,values in query.items %}
-                <tr>
-                    <td>{{key}}</td>
                     {% for v in values %}
+                    <tr>
                     <td>{{v}}</td>
-                    {% endfor %}
                     </tr>
+                        {% endfor %}
                 {% endfor%}
         </table>
 

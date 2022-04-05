@@ -9,11 +9,13 @@
     <div class="container">
         <h1>Dentists in Branches</h1>
         <table class="table">
-                {% for key,values in query.items %}
+        <tr>{% for key in keys %}
+            <th>{{ key }}</th>
+        {% endfor%}</tr>
+                {% for row in rows %}
                 <tr>
-                    <td>{{key}}</td>
-                    {% for v in values %}
-                    <td>{{v}}</td>
+                    {% for item in row %}
+                    <td>{{item}}</td>
                     {% endfor %}
                     </tr>
                 {% endfor%}
