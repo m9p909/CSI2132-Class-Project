@@ -11,8 +11,7 @@ class Dentist(Form):
 
 
 def result_to_context(form: Form) -> dict:
-    res={}
-    subres = {}
+    res = {}
     rows = []
     for formrow in form:
         row = []
@@ -20,14 +19,14 @@ def result_to_context(form: Form) -> dict:
             row.append(formrow[key])
         rows.append(row)
     # make form into dict
-    res['keys']= [key for key in form.keys()]
+    res['keys'] = [key for key in form.keys()]
     res['rows'] = rows
-    res['columns'] =  len(rows[0]) if len(rows) > 1 else 0
+    res['columns'] = len(rows[0]) if len(rows) > 1 else 0
     return res
+
 
 def query_dentist():
     with get_engine().connect() as conn:
-
         query = text(
             "SELECT p.f_name,p.l_name, employee_id , d.branch_id,b.city FROM person p, dentist d, branch b "
             "WHERE d.branch_id=b.branch_id and p.person_id=employee_id;",
@@ -40,12 +39,13 @@ def query_dentist():
         #     print("Branch ID:", row['branch_id'])
         return result
 
+
 def get_dentist_branch(request):
     if request.method == "GET":
         result = query_dentist()
         context = result_to_context(result)
         return render(request, "dentist_branch_form.html", context)
 
+
 def dentist_in_branch_endpoint(request):
     return get_dentist_branch(request)
-
