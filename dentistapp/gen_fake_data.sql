@@ -18,6 +18,15 @@ values (123, 1000000);
 
 insert into manager
 values (123);
+
+
+
+insert into branch(city, manager_id)
+values ('cool city', 123);
+
+insert into branch(city, manager_id)
+values ('bad city', 123);
+
 -- create dentist
 insert into person
 values (321,
@@ -34,17 +43,9 @@ values (321,
         '1111111');
 INSERT into employee
 values (321, 1000000);
+
 insert into dentist
-values (321);
-
-
-
-insert into branch(city, manager_id)
-values ('cool city', 123);
-
-insert into branch(city, manager_id)
-values ('bad city', 123);
-
+values (321, 1);
 
 --Create patient--
 insert into person
