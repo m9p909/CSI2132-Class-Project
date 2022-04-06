@@ -22,7 +22,7 @@ def result_to_context(form: Form) -> dict:
     # make form into dict
     res['keys']= [key for key in form.keys()]
     res['rows'] = rows
-    res['columns'] = len(rows[0])
+    res['columns'] =  len(rows[0]) if len(rows) > 1 else 0
     return res
 
 def query_dentist():
