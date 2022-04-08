@@ -32,7 +32,7 @@ drop_main_tables.sql : deletes the database
 4. install dependencies: `pip install -r ./requirements.txt`
 5. clone dentistapp/.env.example to dentistapp/.env
 6. change the string in dentistapp/.env to the database url
-7. run `gunicorn dentistapp.wsgi`
+7. run `gunicorn dentistapp.wsgi` for prod or `python3 manage.py runserver` for dev
 8. Ip should display, and a message "connected to database" should display
 
 ### .env example
