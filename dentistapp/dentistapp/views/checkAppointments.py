@@ -33,7 +33,7 @@ def query_dentist(form: Appointment):
             "SELECT a.appointment_id,a.patient_id,p.f_name,p.l_name,d.employee_id,a.appointment_date,a.start_time,a.end_time,a.appointement_type, "
             "a.appointement_status,a.room_assigned "
             "FROM appointment a, dentist d, person p "
-            "WHERE d.employee_id = :dentist_id AND d.employee_id = person_id;")
+            "WHERE d.employee_id = :dentist_id AND a.patient_id = person_id AND a.dentist_id = :dentist_id;")
 
         result = conn.execute(query,form_data)
         # for row in result:
