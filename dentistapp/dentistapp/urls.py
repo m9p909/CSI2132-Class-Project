@@ -25,7 +25,7 @@ from dentistapp.views.showDentistsInBranch import  dentist_in_branch_endpoint
 from dentistapp.views.setAppointment import  appointment_endpoint
 from dentistapp.views.checkAppointments import  check_appointment_endpoint
 from dentistapp.views.checkProcedures import check_procedure_endpoint
-from dentistapp.views.index import index
+from dentistapp.views.index import index,patient_page,dentist_page,receptionist_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +35,8 @@ urlpatterns = [
     path('dentist_in_branch', dentist_in_branch_endpoint),
     path('appointment', appointment_endpoint),
     path('check_appointment_endpoint', check_appointment_endpoint),
-    path('check_procedure_endpoint', check_procedure_endpoint)
+    path('check_procedure_endpoint', check_procedure_endpoint),
+    path('patient_app', patient_page),
+    path('dentist', dentist_page),
+    path('receptionist', receptionist_page)
 ]
