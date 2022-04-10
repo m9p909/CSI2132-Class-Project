@@ -11,8 +11,11 @@ Jathushan Karthigesar 300060617
 ## Important Files for Part 2
 
 Main.sql: The sql file to generate the database
+
 drop_main_tables.sql : deletes the database
+
 ./dentistapp :  django project
+
 ./dentistapp/gen_fake_data.sql : generate fake data in database
 
 
